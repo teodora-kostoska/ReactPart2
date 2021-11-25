@@ -3,14 +3,17 @@ function About(){
     const [listed, setList] = useState([])
     useEffect(() => {
         let mounted = true;
-        fetch("https://jsonplaceholder.typicode.com/posts").then(data => data.json())
-        .then(items =>{
-            if(mounted){
-                setList(items)
-            }
-        })
+        async function doStuff(){
+            await fetch("https://jsonplaceholder.typicode.com/posts").then(data => data.json())
+            .then(items =>{
+                if(mounted){
+                    setList(items)
+                }
+            })
+        }
+        doStuff()
         return () => mounted = false;
-    })
+    },[])
     return(
         <div>
             <ol>
